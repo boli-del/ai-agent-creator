@@ -8,5 +8,5 @@ def mask(size):
     size: number of tokens within the sequence
     '''
     sq_mat = (1, size, size) #creating a square matrix filled with 1
-    np.triu(np.ones(sq_mat), k=1) #turning the square matrix into an upper triangular matrix
+    mask = np.triu(np.ones(sq_mat), k=1).astype('uint8') #turning the square matrix into an upper triangular matrix
     return torch.from_numpy(1 - mask)
