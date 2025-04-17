@@ -1,6 +1,6 @@
 # AI Agent Generator
 
-A PyTorch-based framework to **automatically generate AI agents** tailored to user needs. Provide a simple natural-language prompt, and the system constructs a transformer-based agent (with embeddings, attention, and slot-filling) ready to be deployed as a conversational assistant for industries, customer support, education, and more.
+A PyTorch-based framework to **automatically generate AI agents** tailored to user needs. Provide a simple natural-language prompt, and the system constructs a transformer-based agent (with embeddings, attention, and slot-filling) ready to be deployed as a conversational assistant for industries, customer support, education, and more. (work in progress, starting with the transformers, have not built the agent workflow generating)
 
 ---
 
