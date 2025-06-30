@@ -2,7 +2,7 @@ import torch
 import math
 import torch.nn as nn
 
-## Positional Encoding Layer for Lemmatization Tasks
+# Positional Encoding Layer
 class PositionalEncoding(nn.Module):
     """
     Positional encoding layer for transformer models, with adjustments for lemmatization.
