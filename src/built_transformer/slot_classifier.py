@@ -14,7 +14,7 @@ class SlotClassifier(nn.Module):
     ):
         """
         Initialize the slot classifier.
-        input_dim: Dimension of the input features (usually d_model from transformer)
+        input_dim: Dimension of the input features (usually dimension_of_model or d_model from transformer)
         num_slots: Number of different slot types to classify
         hidden_dim: Dimension of hidden layers in the MLP
         dropout: Dropout probability for regularization

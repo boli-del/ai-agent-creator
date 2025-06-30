@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 import math
 
-# Import your building blocks
-from src.built_transformer.embeddings import Embeddings
-from src.built_transformer.encoder import Encoder, EncoderLayer
-from src.built_transformer.decoders import Decoder, DecoderLayer
-from src.built_transformer.positional_encodings import PositionalEncoding
-from src.built_transformer.slot_classifier import SlotClassifier
+# Import neccessary layers
+from built_transformer.embeddings import Embeddings
+from built_transformer.encoder import Encoder, EncoderLayer
+from built_transformer.decoders import Decoder, DecoderLayer
+from built_transformer.positional_encodings import PositionalEncoding
+from built_transformer.slot_classifier import SlotClassifier
 
 class TransformerChatbot(nn.Module):
     """
@@ -35,7 +35,7 @@ class TransformerChatbot(nn.Module):
         
         # Embeddings for tokens, roles, and turns
         self.embed = Embeddings(
-            vocab_size=vocab_size,
+            char=vocab_size, # Fixed type and name mismatch
             dimension_for_model=d_model,
             num_of_roles=num_roles,
             max_turns=max_turns
@@ -52,7 +52,9 @@ class TransformerChatbot(nn.Module):
             num_layers=num_encoder_layers,
             dim_feedforward=d_ff,
             dropout=dropout,
-            max_len=max_len
+            max_len=max_len,
+            num_of_roles=num_roles,
+            max_turns=max_turns
         )
         
         # Decoder stack
@@ -79,6 +81,25 @@ class TransformerChatbot(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
                 
+    def load_state_dict(self, state_dict, strict=True):
+        # Check if this is an old model format (has encoder.embed.weight), since previous versions uses different weights
+        if 'encoder.embed.weight' in state_dict:
+            # This is an old model, we need to adapt the weights
+            old_embed_weight = state_dict['encoder.embed.weight']
+            
+            # Copy the old embedding weights to the new structure
+            state_dict['encoder.embed.lut.weight'] = old_embed_weight
+            # Initialize role and turn embeddings with correct sizes
+            state_dict['encoder.embed.lut_roles.weight'] = torch.zeros(2, old_embed_weight.size(1))  # 2 roles
+            state_dict['encoder.embed.lut_turns.weight'] = torch.zeros(16, old_embed_weight.size(1))  # 16 turns
+            state_dict['encoder.embed.norm.weight'] = torch.ones(old_embed_weight.size(1))
+            state_dict['encoder.embed.norm.bias'] = torch.zeros(old_embed_weight.size(1))
+            
+            # Remove the old key
+            del state_dict['encoder.embed.weight']
+        
+        return super().load_state_dict(state_dict, strict=strict)
+                
     def encode(self, src_tokens, src_roles, src_turns, src_mask=None):
         """
         Encode source sequences with role and turn information.
@@ -90,12 +111,8 @@ class TransformerChatbot(nn.Module):
         Returns:
             enc_out: [B, S, d_model]
         """
-        # Combine embeddings
-        x = self.embed(src_tokens, src_roles, src_turns)
-        x = self.pos_enc(x)
-        
-        # Pass through encoder
-        return self.encoder(src_tokens, src_mask)
+        # Pass through encoder (embedding and positional encoding handled inside)
+        return self.encoder(src_tokens, src_roles, src_turns, src_mask)
     
     def decode(
         self,

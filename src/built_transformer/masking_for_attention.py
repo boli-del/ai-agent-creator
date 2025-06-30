@@ -7,6 +7,6 @@ def mask(size):
     through the creation of upper-triangular matrixes
     size: number of tokens within the sequence
     '''
-    sq_mat = (1, size, size) #creating a square matrix filled with 1
-    mask = np.triu(np.ones(sq_mat), k=1).astype('uint8') #turning the square matrix into an upper triangular matrix
+    sq_mat = (1, size, size) # Creating a square matrix filled with 1
+    mask = np.triu(np.ones(sq_mat), k=1).astype('uint8') # Turning the square matrix into an upper triangular matrix
     return torch.from_numpy(1 - mask)
