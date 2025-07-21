@@ -4,7 +4,7 @@ A PyTorch-based framework to **automatically generate AI agents** tailored to us
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
