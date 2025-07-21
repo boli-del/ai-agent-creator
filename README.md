@@ -23,7 +23,7 @@ A PyTorch-based framework to **automatically generate AI agents** tailored to us
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project lets you turn a one-line prompt (e.g., “Build a customer-support agent for the educational sector”) into a fully operational transformer-based AI agent. The pipeline:
 
@@ -33,7 +33,7 @@ This project lets you turn a one-line prompt (e.g., “Build a customer-support 
 
 ---
 
-## ✨ Features
+## Features
 
 - **Prompt-Driven Agent Creation**  
   Build a specialized chatbot by simply describing your use case.
@@ -52,7 +52,7 @@ This project lets you turn a one-line prompt (e.g., “Build a customer-support 
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 1. **Prompt Parser**  
    - CLI or API to parse user prompt into `intent` + `slot schema`.
@@ -74,7 +74,7 @@ This project lets you turn a one-line prompt (e.g., “Build a customer-support 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -94,7 +94,7 @@ pip install -r requirements.txt
 
 ---
 
-## ⚙️ Usage
+## Usage
 
 ### Generating a New Agent
 
@@ -125,7 +125,7 @@ Use `--schema my_schema.json` when running `run_agent_generator.py`.
 
 ---
 
-## 📚 Data & Training
+## Data & Training
 
 1. **Prepare Dialogues:** Multi-turn conversations with slot annotations.
 2. **Tokenize & Tag:** Generate token, role, and turn tensors.
@@ -134,7 +134,7 @@ Use `--schema my_schema.json` when running `run_agent_generator.py`.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 ai-agent-generator/
@@ -154,7 +154,7 @@ ai-agent-generator/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repo  
 2. Create a branch (`git checkout -b feature/new-agent`)  
@@ -165,13 +165,13 @@ Please add tests and update documentation for new features.
 
 ---
 
-## 📜 License
+## License
 
 [MIT License](LICENSE)
 
 Feel free to adapt and extend this framework to generate AI agents for any domain!
 
-## 🔗 References & Further Reading
+## References & Further Reading
 
 - Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS.  
 - “The Annotated Transformer” by Harvard NLP  
